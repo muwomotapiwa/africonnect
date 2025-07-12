@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post a Job – AfriConnect</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .form-section {
+      max-width: 600px;
+      margin: 3rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .form-section h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #1A1A40;
+    }
+
+    .form-section input,
+    .form-section select,
+    .form-section textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .form-section button {
+      width: 100%;
+      padding: 0.9rem;
+      background: #FF7F11;
+      color: #fff;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .form-section button:hover {
+      background: #e96f0d;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <!-- Reuse the dashboard-style nav -->
+  <nav class="navbar">
+    <div class="container">
+      <h1>AfriConnect</h1>
+      <div>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="form-section">
+    <h2>Post a New Job</h2>
+    <form id="postJobForm">
+      <input type="text" id="jobTitle" placeholder="Job Title" required />
+      <input type="text" id="companyName" placeholder="Company Name" required />
+      <input type="text" id="location" placeholder="Location" required />
+      <select id="jobType" required>
+        <option value="">-- Select Job Type --</option>
+        <option value="Full-time">Full-time</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Freelance">Freelance</option>
+        <option value="Internship">Internship</option>
+      </select>
+      <input type="text" id="salary" placeholder="Salary Range (Optional)" />
+      <textarea id="description" rows="6" placeholder="Job Description" required></textarea>
+      <button type="submit">Submit Job</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <h2>AfriConnect</h2>
+      <p>Empowering Africa’s talent for global remote work. We connect skilled professionals with overseas companies seeking excellence.</p>
+      <div class="footer-cta">
+        <a href="signup.html" class="btn-primary">Join as Job Seeker</a>
+        <a href="post-job.html" class="btn-secondary">Hire Remote Talent</a>
+      </div>
+    </div>
+
+    <div class="footer-columns">
+      <div>
+        <h4>Explore</h4>
+        <a href="#">Engineering Jobs</a>
+        <a href="#">Design Jobs</a>
+        <a href="#">Remote Finance</a>
+        <a href="#">Marketing Jobs</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="profile-employer.html">Post a Job</a>
+        <a href="signup.html">Get Started</a>
+        <a href="jobs.html">Browse Jobs</a>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <a href="#">Help Center</a>
+        <a href="#">FAQs</a>
+        <a href="#">Contact</a>
+        <a href="#">Terms & Privacy</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 AfriConnect. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#"><img src="assets/icons/linkedin.svg" alt="LinkedIn" /></a>
+        <a href="#"><img src="assets/icons/twitter.svg" alt="Twitter" /></a>
+        <a href="#"><img src="assets/icons/email.svg" alt="Email" /></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script type="module">
+    const employerConfig = {
+      apiKey: "AIzaSyBSmpkwQvSyHcUOGF6J63_MbDCkvKouPT8",
+      authDomain: "africonnectemployer.firebaseapp.com",
+      projectId: "africonnectemployer",
+      storageBucket: "africonnectemployer.firebasestorage.app",
+      messagingSenderId: "671630155008",
+      appId: "1:671630155008:web:6191e14908264df047a7e5"
+    };
+
+    const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js");
+    const { getAuth, onAuthStateChanged, signOut } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js");
+
+    const app = getApps().some(app => app.name === "employer") 
+      ? getApps().find(app => app.name === "employer") 
+      : initializeApp(employerConfig, "employer");
+
+    const auth = getAuth(app);
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    logoutBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      await signOut(auth);
+      alert("Logged out.");
+      window.location.href = "login.html";
+    });
+
+    // Protect the page: Only signed-in employers allowed
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        alert("Please log in as an employer to access this page.");
+        window.location.href = "login.html";
+      }
+    });
+
+    // Handle form submission
+    const form = document.getElementById("postJobForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const job = {
+        title: document.getElementById("jobTitle").value,
+        company: document.getElementById("companyName").value,
+        location: document.getElementById("location").value,
+        type: document.getElementById("jobType").value,
+        salary: document.getElementById("salary").value,
+        description: document.getElementById("description").value,
+        createdAt: new Date().toISOString()
+      };
+
+      console.log("Job submitted:", job);
+
+      alert("Job submitted successfully! (We'll connect to Firestore later.)");
+      form.reset();
+    });
+  </script>
+</body>
+</html>

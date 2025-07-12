@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Profile (Job Seeker) – AfriConnect</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .profile-container {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .profile-container h2 {
+      text-align: center;
+      color: #1A1A40;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .field-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .multi-entry {
+      margin-bottom: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .multi-entry input {
+      flex: 1;
+    }
+
+    .multi-entry button {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.7rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .add-btn {
+      background: #005F73;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    button.save-btn {
+      background-color: #FF7F11;
+      color: white;
+      font-size: 1rem;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      display: block;
+      margin-top: 1.5rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container">
+      <h1 class="logo">AfriConnect</h1>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="profile-container">
+    <h2>Job Seeker Profile</h2>
+    <form id="seekerProfileForm">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" disabled />
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" />
+
+      <!-- Skills -->
+      <div class="field-group">
+        <label>Skills</label>
+        <div id="skillsList"></div>
+        <button type="button" class="add-btn" onclick="addField('skillsList')">+ Add Skill</button>
+      </div>
+
+      <!-- Experience -->
+      <div class="field-group">
+        <label>Experience</label>
+        <div id="experienceList"></div>
+        <button type="button" class="add-btn" onclick="addField('experienceList')">+ Add Experience</button>
+      </div>
+
+      <!-- Education -->
+      <div class="field-group">
+        <label>Education</label>
+        <div id="educationList"></div>
+        <button type="button" class="add-btn" onclick="addField('educationList')">+ Add Education</button>
+      </div>
+
+      <!-- File Upload -->
+      <label for="resume">Upload Resume (PDF)</label>
+      <input type="file" id="resume" accept=".pdf" />
+
+      <button type="submit" class="save-btn">Save Profile</button>
+    </form>
+  </section>
+
+  <script type="module">
+    const seekerConfig = {
+      apiKey: "AIzaSyC_7QKYXs6DPwjb7FXCffu8vuu9fXskzpc",
+      authDomain: "africonnect-60a8f.firebaseapp.com",
+      projectId: "africonnect-60a8f",
+      storageBucket: "africonnect-60a8f.appspot.com",
+      messagingSenderId: "743051222212",
+      appId: "1:743051222212:web:3fa4a1dc9cb54afd4d7d91"
+    };
+
+    const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js");
+    const { getAuth, onAuthStateChanged, signOut } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js");
+
+    const app = getApps().length > 0 ? getApps()[0] : initializeApp(seekerConfig);
+    const auth = getAuth(app);
+
+    const logoutBtn = document.getElementById("logoutBtn");
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      alert("Logged out.");
+      window.location.href = "login.html";
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        document.getElementById("fullName").value = user.displayName || "";
+        document.getElementById("email").value = user.email;
+      }
+    });
+
+    // Add dynamic input field
+    window.addField = function(containerId) {
+      const container = document.getElementById(containerId);
+      const wrapper = document.createElement("div");
+      wrapper.className = "multi-entry";
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.required = true;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.innerText = "X";
+      removeBtn.onclick = () => container.removeChild(wrapper);
+
+      wrapper.appendChild(input);
+      wrapper.appendChild(removeBtn);
+      container.appendChild(wrapper);
+    };
+  </script>
+</body>
+</html>

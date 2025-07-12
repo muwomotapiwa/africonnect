@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – AfriConnect</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .dashboard {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .dashboard h2 {
+      color: #1A1A40;
+      margin-bottom: 1rem;
+    }
+
+    .dashboard p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard .btn {
+      background-color: #FF7F11;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 0.5rem;
+      cursor: pointer;
+    }
+
+    nav.navbar {
+      background-color: #1A1A40;
+      padding: 1rem 0;
+    }
+
+    nav.navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    nav.navbar a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 500;
+    }
+
+    nav.navbar a:hover {
+      text-decoration: underline;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <h1>AfriConnect</h1>
+      <div>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="profile.html">Profile</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="post-job.html" id="postJobLink" class="hidden">Post a Job</a>
+        <a href="#" id="logoutNav">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container dashboard">
+    <h2 id="greeting">Loading your dashboard...</h2>
+    <p id="userRole"></p>
+
+    <div id="actions" class="hidden">
+      <button id="logoutBtn" class="btn">Logout</button>
+    </div>
+  </div>
+
+  <script type="module">
+    const seekerConfig = {
+      apiKey: "AIzaSyC_7QKYXs6DPwjb7FXCffu8vuu9fXskzpc",
+      authDomain: "africonnect-60a8f.firebaseapp.com",
+      projectId: "africonnect-60a8f",
+      storageBucket: "africonnect-60a8f.firebasestorage.app",
+      messagingSenderId: "743051222212",
+      appId: "1:743051222212:web:3fa4a1dc9cb54afd4d7d91"
+    };
+
+    const employerConfig = {
+      apiKey: "AIzaSyBSmpkwQvSyHcUOGF6J63_MbDCkvKouPT8",
+      authDomain: "africonnectemployer.firebaseapp.com",
+      projectId: "africonnectemployer",
+      storageBucket: "africonnectemployer.firebasestorage.app",
+      messagingSenderId: "671630155008",
+      appId: "1:671630155008:web:6191e14908264df047a7e5"
+    };
+
+    const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js");
+    const { getAuth, onAuthStateChanged, signOut } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js");
+
+    const seekerApp = getApps().some(app => app.name === "seeker") ? getApps().find(app => app.name === "seeker") : initializeApp(seekerConfig, "seeker");
+    const employerApp = getApps().some(app => app.name === "employer") ? getApps().find(app => app.name === "employer") : initializeApp(employerConfig, "employer");
+
+    const seekerAuth = getAuth(seekerApp);
+    const employerAuth = getAuth(employerApp);
+
+    const greeting = document.getElementById("greeting");
+    const userRole = document.getElementById("userRole");
+    const actions = document.getElementById("actions");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const logoutNav = document.getElementById("logoutNav");
+    const postJobLink = document.getElementById("postJobLink");
+
+    let currentAuth = null;
+
+    const showDashboard = (user, role) => {
+      greeting.textContent = `Welcome, ${user.displayName || user.email}`;
+      userRole.textContent = `Role: ${role}`;
+      actions.classList.remove("hidden");
+
+      if (role === "Employer") {
+        postJobLink.classList.remove("hidden");
+      }
+    };
+
+    logoutBtn.addEventListener("click", async () => {
+      if (currentAuth) {
+        await signOut(currentAuth);
+        alert("You’ve been logged out.");
+        window.location.href = "login.html";
+      }
+    });
+
+    logoutNav.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (currentAuth) {
+        await signOut(currentAuth);
+        alert("You’ve been logged out.");
+        window.location.href = "login.html";
+      }
+    });
+
+    const checkUser = () => {
+      onAuthStateChanged(seekerAuth, (user) => {
+        if (user) {
+          currentAuth = seekerAuth;
+          showDashboard(user, "Job Seeker");
+        }
+      });
+
+      onAuthStateChanged(employerAuth, (user) => {
+        if (user) {
+          currentAuth = employerAuth;
+          showDashboard(user, "Employer");
+        }
+      });
+    };
+
+    checkUser();
+  </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sign Up – AfriConnect</title>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/loginsignup.css" />
+<style>
+.hidden {
+display: none;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Join AfriConnect</h2>
+<p>Select your role:</p>
+<select id="userType">
+<option value="">-- Select --</option>
+<option value="seeker">Job Seeker</option>
+<option value="employer">Employer</option>
+</select>
+
+<!-- Job Seeker Signup Form -->
+<form id="seekerForm" class="hidden">
+<input type="text" id="seekerName" placeholder="Full Name" required />
+<input type="email" id="seekerEmail" placeholder="Email" required />
+<input type="password" id="seekerPassword" placeholder="Password" required />
+<button type="submit">Sign Up as Job Seeker</button>
+</form>
+
+<!-- Employer Signup Form -->
+<form id="employerForm" class="hidden">
+<input type="text" id="employerName" placeholder="Full Name" required />
+<input type="email" id="employerEmail" placeholder="Email" required />
+<input type="password" id="employerPassword" placeholder="Password" required />
+<button type="submit">Sign Up as Employer</button>
+</form>
+
+<p>Already have an account? <a href="login.html">Login here</a></p>
+</div>
+
+<script type="module">
+const seekerConfig = {
+apiKey: "AIzaSyC_7QKYXs6DPwjb7FXCffu8vuu9fXskzpc",
+authDomain: "africonnect-60a8f.firebaseapp.com",
+projectId: "africonnect-60a8f",
+storageBucket: "africonnect-60a8f.firebasestorage.app",
+messagingSenderId: "743051222212",
+appId: "1:743051222212:web:3fa4a1dc9cb54afd4d7d91"
+};
+
+const employerConfig = {
+apiKey: "AIzaSyBSmpkwQvSyHcUOGF6J63_MbDCkvKouPT8",
+authDomain: "africonnectemployer.firebaseapp.com",
+projectId: "africonnectemployer",
+storageBucket: "africonnectemployer.firebasestorage.app",
+messagingSenderId: "671630155008",
+appId: "1:671630155008:web:6191e14908264df047a7e5"
+};
+
+let seekerApp, employerApp;
+
+const userType = document.getElementById("userType");
+const seekerForm = document.getElementById("seekerForm");
+const employerForm = document.getElementById("employerForm");
+
+userType.addEventListener("change", async (e) => {
+const role = e.target.value;
+
+// Hide both forms first
+seekerForm.classList.add("hidden");
+employerForm.classList.add("hidden");
+
+if (role === "seeker") {
+seekerForm.classList.remove("hidden");
+if (!seekerApp) {
+const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js");
+seekerApp = initializeApp(seekerConfig, "seeker");
+}
+}
+
+if (role === "employer") {
+employerForm.classList.remove("hidden");
+if (!employerApp) {
+const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js");
+employerApp = initializeApp(employerConfig, "employer");
+}
+}
+});
+
+// Seeker Signup Handler
+seekerForm.addEventListener("submit", async (e) => {
+e.preventDefault();
+const { getAuth, createUserWithEmailAndPassword, updateProfile } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js");
+const auth = getAuth(seekerApp);
+const name = document.getElementById("seekerName").value;
+const email = document.getElementById("seekerEmail").value;
+const password = document.getElementById("seekerPassword").value;
+
+try {
+const userCred = await createUserWithEmailAndPassword(auth, email, password);
+await updateProfile(userCred.user, { displayName: name });
+alert("Job Seeker account created!");
+window.location.href = "dashboard.html";
+} catch (err) {
+alert("Signup failed: " + err.message);
+}
+});
+
+// Employer Signup Handler
+employerForm.addEventListener("submit", async (e) => {
+e.preventDefault();
+const { getAuth, createUserWithEmailAndPassword, updateProfile } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js");
+const auth = getAuth(employerApp);
+const name = document.getElementById("employerName").value;
+const email = document.getElementById("employerEmail").value;
+const password = document.getElementById("employerPassword").value;
+
+try {
+const userCred = await createUserWithEmailAndPassword(auth, email, password);
+await updateProfile(userCred.user, { displayName: name });
+alert("Employer account created!");
+window.location.href = "dashboard.html";
+} catch (err) {
+alert("Signup failed: " + err.message);
+}
+});
+</script>
+</body>
+</html>

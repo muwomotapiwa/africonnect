@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jobs – AfriConnect</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .jobs-page {
+      padding: 2rem 0;
+    }
+
+    .job-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+
+    .job-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1.2rem;
+      width: 300px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    }
+
+    .job-card h4 {
+      color: #1A1A40;
+      margin-bottom: 0.5rem;
+    }
+
+    .job-card p {
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    .job-card a {
+      color: #005F73;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .job-card a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+ <!-- Navigation -->
+<header class="navbar">
+    <div class="container">
+      <h1 class="logo">AfriConnect</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="signup.html">Join</a>
+        <a href="login.html" class="btn-login">Login</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- Jobs Section -->
+  <section class="container jobs-page">
+    <h2 style="text-align:center; margin-bottom:2rem;">Latest Job Openings</h2>
+    <div class="job-grid">
+      <div class="job-card">
+        <h4>Frontend Developer</h4>
+        <p><strong>Company:</strong> KypexTech</p>
+        <p><strong>Location:</strong> Remote</p>
+        <p><strong>Type:</strong> Full-time</p>
+        <a href="login.html">View Details</a>
+      </div>
+      <div class="job-card">
+        <h4>Customer Support Agent</h4>
+        <p><strong>Company:</strong> GlobalSupport</p>
+        <p><strong>Location:</strong> South Africa</p>
+        <p><strong>Type:</strong> Part-time</p>
+        <a href="login.html">View Details</a>
+      </div>
+      <div class="job-card">
+        <h4>Graphic Designer</h4>
+        <p><strong>Company:</strong> CreativeHouse</p>
+        <p><strong>Location:</strong> Remote</p>
+        <p><strong>Type:</strong> Freelance</p>
+        <a href="login.html">View Details</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

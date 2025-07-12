@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employer Profile – AfriConnect</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .profile-container {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .profile-container h2 {
+      text-align: center;
+      color: #1A1A40;
+      margin-bottom: 2rem;
+    }
+
+    label {
+      font-weight: 500;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button.save-btn {
+      background-color: #FF7F11;
+      color: white;
+      font-size: 1rem;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="container">
+      <h1 class="logo">AfriConnect</h1>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="profile-employer.html">Profile</a>
+        <a href="#" id="logoutBtn">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Profile Form -->
+  <section class="profile-container">
+    <h2>Employer Profile</h2>
+    <form id="employerProfileForm">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" disabled />
+
+      <label for="companyName">Company Name</label>
+      <input type="text" id="companyName" required />
+
+      <label for="industry">Industry</label>
+      <input type="text" id="industry" required />
+
+      <label for="website">Company Website</label>
+      <input type="text" id="website" placeholder="https://example.com" />
+
+      <label for="description">Company Description</label>
+      <textarea id="description" rows="4" placeholder="Tell us about your company..."></textarea>
+
+      <label for="logo">Upload Company Logo (PNG, JPG)</label>
+      <input type="file" id="logo" accept="image/*" />
+
+      <button type="submit" class="save-btn">Save Profile</button>
+    </form>
+  </section>
+
+  <script type="module">
+    const employerConfig = {
+      apiKey: "AIzaSyBSmpkwQvSyHcUOGF6J63_MbDCkvKouPT8",
+      authDomain: "africonnectemployer.firebaseapp.com",
+      projectId: "africonnectemployer",
+      storageBucket: "africonnectemployer.appspot.com",
+      messagingSenderId: "671630155008",
+      appId: "1:671630155008:web:6191e14908264df047a7e5"
+    };
+
+    const { initializeApp, getApps } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js");
+    const { getAuth, onAuthStateChanged, signOut } = await import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js");
+
+    const app = getApps().length > 0 ? getApps()[0] : initializeApp(employerConfig);
+    const auth = getAuth(app);
+
+    const logoutBtn = document.getElementById("logoutBtn");
+    logoutBtn.addEventListener("click", async () => {
+      await signOut(auth);
+      alert("Logged out.");
+      window.location.href = "login.html";
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        document.getElementById("fullName").value = user.displayName || "";
+        document.getElementById("email").value = user.email;
+      }
+    });
+  </script>
+</body>
+</html>
