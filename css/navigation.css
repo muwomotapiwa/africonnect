@@ -57,13 +57,15 @@
 
 .navbar .user-menu {
   position: relative;
-  display: inline-block;
+  display: none;
+  align-items: center;
+  gap: 1rem;
 }
 
 .navbar .user-greeting {
   color: #fff;
-  margin-right: 1rem;
   font-weight: 500;
+  display: none;
 }
 
 .navbar .dropdown {
@@ -80,6 +82,7 @@
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   border-radius: 4px;
   z-index: 1;
+  margin-top: 0.5rem;
 }
 
 .navbar .dropdown-content a {
@@ -87,6 +90,7 @@
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  font-weight: normal;
 }
 
 .navbar .dropdown-content a:hover {
@@ -104,9 +108,24 @@
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 4px;
+  font-weight: 500;
 }
 
 .navbar .dropdown-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar .logout-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.navbar .logout-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
@@ -144,5 +163,37 @@
   .navbar .nav-links a {
     padding: 0.75rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    text-align: center;
   }
+
+  .navbar .user-menu {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .navbar .dropdown-content {
+    position: static;
+    display: block;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-top: 0;
+  }
+
+  .navbar .dropdown-content a {
+    color: #fff;
+  }
+}
+
+/* Hide elements by default */
+.auth-links {
+  display: block;
+}
+
+.user-menu {
+  display: none;
+}
+
+#postJobLink {
+  display: none;
 }

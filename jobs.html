@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jobs – AfriConnect</title>
+  <title>Jobs – AkiliAfriQA</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navigation.css" />
   <style>
     .jobs-page {
       padding: 2rem 0;
@@ -50,14 +51,31 @@
 </head>
 <body>
  <!-- Navigation -->
-<header class="navbar">
+  <header class="navbar">
     <div class="container">
-      <h1 class="logo">AfriConnect</h1>
-      <nav>
+      <a href="index.html" class="logo">AkiliAfriQA</a>
+      <button class="mobile-menu-toggle">☰</button>
+      <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="jobs.html">Jobs</a>
-        <a href="signup.html">Join</a>
-        <a href="login.html" class="btn-login">Login</a>
+        <a href="about.html">About</a>
+        <div id="authLinks" class="auth-links">
+          <a href="signup.html">Join</a>
+          <a href="login.html" class="btn-login">Login</a>
+        </div>
+        <div id="userMenu" class="user-menu">
+          <span id="userGreeting" class="user-greeting"></span>
+          <div class="dropdown">
+            <button class="dropdown-toggle">Menu ▼</button>
+            <div class="dropdown-content">
+              <a href="dashboard.html">Dashboard</a>
+              <a href="profile-seeker.html" id="seekerProfileLink">My Profile</a>
+              <a href="profile-employer.html" id="employerProfileLink">Company Profile</a>
+              <a href="post-job.html" id="postJobLink">Post a Job</a>
+              <a href="#" class="logout-btn">Logout</a>
+            </div>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
@@ -90,5 +108,7 @@
       </div>
     </div>
   </section>
+
+  <script src="js/navigation.js"></script>
 </body>
 </html>

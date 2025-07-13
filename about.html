@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us – AkiliAfriQA</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navigation.css" />
+  <style>
+    .about-hero {
+      background: linear-gradient(135deg, #1A1A40 0%, #005F73 100%);
+      color: white;
+      padding: 4rem 1rem;
+      text-align: center;
+    }
+
+    .about-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .about-content {
+      padding: 4rem 1rem;
+    }
+
+    .about-section {
+      margin-bottom: 3rem;
+    }
+
+    .about-section h2 {
+      color: #1A1A40;
+      margin-bottom: 1rem;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .value-card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .value-card h3 {
+      color: #FF7F11;
+      margin-bottom: 1rem;
+    }
+
+    .stats-section {
+      background: #F4F4F4;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item h3 {
+      font-size: 2.5rem;
+      color: #FF7F11;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">AkiliAfriQA</a>
+      <button class="mobile-menu-toggle">☰</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="about.html">About</a>
+        <div id="authLinks" class="auth-links">
+          <a href="signup.html">Join</a>
+          <a href="login.html" class="btn-login">Login</a>
+        </div>
+        <div id="userMenu" class="user-menu">
+          <span id="userGreeting" class="user-greeting"></span>
+          <div class="dropdown">
+            <button class="dropdown-toggle">Menu ▼</button>
+            <div class="dropdown-content">
+              <a href="dashboard.html">Dashboard</a>
+              <a href="profile-seeker.html" id="seekerProfileLink">My Profile</a>
+              <a href="profile-employer.html" id="employerProfileLink">Company Profile</a>
+              <a href="post-job.html" id="postJobLink">Post a Job</a>
+              <a href="#" class="logout-btn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="container">
+      <h1>About AkiliAfriQA</h1>
+      <p>Bridging the gap between Africa's exceptional talent and global opportunities through innovative technology and meaningful connections.</p>
+    </div>
+  </section>
+
+  <!-- About Content -->
+  <section class="about-content">
+    <div class="container">
+      <div class="about-section">
+        <h2>Our Mission</h2>
+        <p>AkiliAfriQA is dedicated to unlocking Africa's vast potential by connecting skilled professionals with international employers seeking top-tier remote talent. We believe that geographical boundaries should never limit career opportunities or business growth.</p>
+      </div>
+
+      <div class="about-section">
+        <h2>Why AkiliAfriQA?</h2>
+        <p>Africa is home to some of the world's most innovative, educated, and driven professionals. Our platform serves as a bridge, making it easier for global companies to discover and hire exceptional African talent while providing African professionals with access to international career opportunities.</p>
+      </div>
+
+      <div class="about-section">
+        <h2>Our Values</h2>
+        <div class="values-grid">
+          <div class="value-card">
+            <h3>Excellence</h3>
+            <p>We maintain the highest standards in connecting quality talent with quality opportunities.</p>
+          </div>
+          <div class="value-card">
+            <h3>Inclusivity</h3>
+            <p>We believe in equal opportunities for all, regardless of location or background.</p>
+          </div>
+          <div class="value-card">
+            <h3>Innovation</h3>
+            <p>We leverage cutting-edge technology to create seamless connections across continents.</p>
+          </div>
+          <div class="value-card">
+            <h3>Empowerment</h3>
+            <p>We empower both talent and employers to achieve their full potential through meaningful partnerships.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <h2>Our Impact</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>1000+</h3>
+          <p>Talented Professionals</p>
+        </div>
+        <div class="stat-item">
+          <h3>500+</h3>
+          <p>Global Companies</p>
+        </div>
+        <div class="stat-item">
+          <h3>50+</h3>
+          <p>Countries Served</p>
+        </div>
+        <div class="stat-item">
+          <h3>95%</h3>
+          <p>Success Rate</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h3>Ready to Join Our Community?</h3>
+      <a href="signup.html" class="btn-secondary">Get Started Today</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h2>AkiliAfriQA</h2>
+        <p>Empowering Africa's talent for global remote work. We connect skilled professionals with overseas companies seeking excellence.</p>
+        <div class="footer-cta">
+          <a href="signup.html" class="btn-primary">Join as Job Seeker</a>
+          <a href="post-job.html" class="btn-secondary">Hire Remote Talent</a>
+        </div>
+      </div>
+
+      <div class="footer-columns">
+        <div>
+          <h4>Explore</h4>
+          <a href="#">Engineering Jobs</a>
+          <a href="#">Design Jobs</a>
+          <a href="#">Remote Finance</a>
+          <a href="#">Marketing Jobs</a>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About Us</a>
+          <a href="profile-employer.html">Post a Job</a>
+          <a href="signup.html">Get Started</a>
+          <a href="jobs.html">Browse Jobs</a>
+        </div>
+        <div>
+          <h4>Support</h4>
+          <a href="#">Help Center</a>
+          <a href="#">FAQs</a>
+          <a href="#">Contact</a>
+          <a href="#">Terms & Privacy</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 AkiliAfriQA. All rights reserved.</p>
+        <div class="social-links">
+          <a href="#"><img src="assets/icons/linkedin.svg" alt="LinkedIn" /></a>
+          <a href="#"><img src="assets/icons/twitter.svg" alt="Twitter" /></a>
+          <a href="#"><img src="assets/icons/email.svg" alt="Email" /></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/navigation.js"></script>
+</body>
+</html>

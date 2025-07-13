@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Post a Job – AfriConnect</title>
+  <title>Post a Job – AkiliAfriQA</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navigation.css" />
   <style>
     .form-section {
       max-width: 600px;
@@ -51,18 +52,35 @@
   </style>
 </head>
 <body>
-  <!-- Reuse the dashboard-style nav -->
-  <nav class="navbar">
+  <!-- Navigation -->
+  <header class="navbar">
     <div class="container">
-      <h1>AfriConnect</h1>
-      <div>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="profile.html">Profile</a>
+      <a href="index.html" class="logo">AkiliAfriQA</a>
+      <button class="mobile-menu-toggle">☰</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
         <a href="jobs.html">Jobs</a>
-        <a href="#" id="logoutBtn">Logout</a>
-      </div>
+        <a href="about.html">About</a>
+        <div id="authLinks" class="auth-links">
+          <a href="signup.html">Join</a>
+          <a href="login.html" class="btn-login">Login</a>
+        </div>
+        <div id="userMenu" class="user-menu">
+          <span id="userGreeting" class="user-greeting"></span>
+          <div class="dropdown">
+            <button class="dropdown-toggle">Menu ▼</button>
+            <div class="dropdown-content">
+              <a href="dashboard.html">Dashboard</a>
+              <a href="profile-seeker.html" id="seekerProfileLink">My Profile</a>
+              <a href="profile-employer.html" id="employerProfileLink">Company Profile</a>
+              <a href="post-job.html" id="postJobLink">Post a Job</a>
+              <a href="#" class="logout-btn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
-  </nav>
+  </header>
 
   <section class="form-section">
     <h2>Post a New Job</h2>
@@ -86,7 +104,7 @@
   <footer class="site-footer">
   <div class="footer-container">
     <div class="footer-brand">
-      <h2>AfriConnect</h2>
+      <h2>AkiliAfriQA</h2>
       <p>Empowering Africa’s talent for global remote work. We connect skilled professionals with overseas companies seeking excellence.</p>
       <div class="footer-cta">
         <a href="signup.html" class="btn-primary">Join as Job Seeker</a>
@@ -119,7 +137,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2025 AfriConnect. All rights reserved.</p>
+      <p>&copy; 2025 AkiliAfriQA. All rights reserved.</p>
       <div class="social-links">
         <a href="#"><img src="assets/icons/linkedin.svg" alt="LinkedIn" /></a>
         <a href="#"><img src="assets/icons/twitter.svg" alt="Twitter" /></a>
@@ -129,6 +147,7 @@
   </div>
 </footer>
 
+  <script src="js/navigation.js"></script>
 
   <script type="module">
     const employerConfig = {
@@ -148,14 +167,6 @@
       : initializeApp(employerConfig, "employer");
 
     const auth = getAuth(app);
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    logoutBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      await signOut(auth);
-      alert("Logged out.");
-      window.location.href = "login.html";
-    });
 
     // Protect the page: Only signed-in employers allowed
     onAuthStateChanged(auth, (user) => {

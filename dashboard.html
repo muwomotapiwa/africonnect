@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard – AfriConnect</title>
+  <title>Dashboard – AkiliAfriQA</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navigation.css" />
   <style>
     .dashboard {
       text-align: center;
@@ -62,29 +63,103 @@
     .hidden {
       display: none;
     }
+
+    .dashboard-content {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .action-card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 6px;
+      text-align: center;
+      border: 1px solid #e9ecef;
+    }
+
+    .action-card h4 {
+      color: #1A1A40;
+      margin-bottom: 0.5rem;
+    }
+
+    .action-card a {
+      color: #FF7F11;
+      text-decoration: none;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
   <!-- Navigation Bar -->
-  <nav class="navbar">
+  <header class="navbar">
     <div class="container">
-      <h1>AfriConnect</h1>
-      <div>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="profile.html">Profile</a>
+      <a href="index.html" class="logo">AkiliAfriQA</a>
+      <button class="mobile-menu-toggle">☰</button>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
         <a href="jobs.html">Jobs</a>
-        <a href="post-job.html" id="postJobLink" class="hidden">Post a Job</a>
-        <a href="#" id="logoutNav">Logout</a>
-      </div>
+        <a href="about.html">About</a>
+        <div id="authLinks" class="auth-links">
+          <a href="signup.html">Join</a>
+          <a href="login.html" class="btn-login">Login</a>
+        </div>
+        <div id="userMenu" class="user-menu">
+          <span id="userGreeting" class="user-greeting"></span>
+          <div class="dropdown">
+            <button class="dropdown-toggle">Menu ▼</button>
+            <div class="dropdown-content">
+              <a href="dashboard.html">Dashboard</a>
+              <a href="profile-seeker.html" id="seekerProfileLink">My Profile</a>
+              <a href="profile-employer.html" id="employerProfileLink">Company Profile</a>
+              <a href="post-job.html" id="postJobLink">Post a Job</a>
+              <a href="#" class="logout-btn">Logout</a>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <div class="container dashboard">
-    <h2 id="greeting">Loading your dashboard...</h2>
-    <p id="userRole"></p>
+  <div class="container">
+    <div class="dashboard-content">
+      <h2 id="greeting">Loading your dashboard...</h2>
+      <p id="userRole"></p>
 
-    <div id="actions" class="hidden">
-      <button id="logoutBtn" class="btn">Logout</button>
+      <div id="actions" class="hidden">
+        <div class="quick-actions">
+          <div class="action-card">
+            <h4>Browse Jobs</h4>
+            <p>Find your next opportunity</p>
+            <a href="jobs.html">View Jobs</a>
+          </div>
+          <div class="action-card" id="seekerActions">
+            <h4>My Profile</h4>
+            <p>Update your information</p>
+            <a href="profile-seeker.html">Edit Profile</a>
+          </div>
+          <div class="action-card" id="employerActions" class="hidden">
+            <h4>Post a Job</h4>
+            <p>Find the perfect candidate</p>
+            <a href="post-job.html">Create Job</a>
+          </div>
+          <div class="action-card" id="employerProfile" class="hidden">
+            <h4>Company Profile</h4>
+            <p>Manage your company info</p>
+            <a href="profile-employer.html">Edit Profile</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -131,26 +206,15 @@
       actions.classList.remove("hidden");
 
       if (role === "Employer") {
-        postJobLink.classList.remove("hidden");
+        document.getElementById("employerActions").classList.remove("hidden");
+        document.getElementById("employerProfile").classList.remove("hidden");
+        document.getElementById("seekerActions").classList.add("hidden");
+      } else {
+        document.getElementById("seekerActions").classList.remove("hidden");
+        document.getElementById("employerActions").classList.add("hidden");
+        document.getElementById("employerProfile").classList.add("hidden");
       }
     };
-
-    logoutBtn.addEventListener("click", async () => {
-      if (currentAuth) {
-        await signOut(currentAuth);
-        alert("You’ve been logged out.");
-        window.location.href = "login.html";
-      }
-    });
-
-    logoutNav.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (currentAuth) {
-        await signOut(currentAuth);
-        alert("You’ve been logged out.");
-        window.location.href = "login.html";
-      }
-    });
 
     const checkUser = () => {
       onAuthStateChanged(seekerAuth, (user) => {
@@ -169,6 +233,14 @@
     };
 
     checkUser();
+
+    // Initialize navigation
+    setTimeout(() => {
+      if (window.navigationManager) {
+        window.navigationManager.updateNavigation();
+      }
+    }, 1000);
   </script>
+  <script src="js/navigation.js"></script>
 </body>
 </html>

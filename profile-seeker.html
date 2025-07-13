@@ -1,0 +1,63 @@
+@@ .. @@
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+-  <title>My Profile (Job Seeker) – AfriConnect</title>
++  <title>My Profile (Job Seeker) – AkiliAfriQA</title>
+   <link rel="stylesheet" href="css/style.css" />
++  <link rel="stylesheet" href="css/navigation.css" />
+   <style>
+@@ .. @@
+ <body>
+
+   <header class="navbar">
+     <div class="container">
+-      <h1 class="logo">AfriConnect</h1>
+-      <nav>
+-        <a href="dashboard.html">Dashboard</a>
+-        <a href="jobs.html">Jobs</a>
+-        <a href="#" id="logoutBtn">Logout</a>
++      <a href="index.html" class="logo">AkiliAfriQA</a>
++      <button class="mobile-menu-toggle">☰</button>
++      <nav class="nav-links">
++        <a href="index.html">Home</a>
++        <a href="jobs.html">Jobs</a>
++        <a href="about.html">About</a>
++        <div id="authLinks" class="auth-links">
++          <a href="signup.html">Join</a>
++          <a href="login.html" class="btn-login">Login</a>
++        </div>
++        <div id="userMenu" class="user-menu">
++          <span id="userGreeting" class="user-greeting"></span>
++          <div class="dropdown">
++            <button class="dropdown-toggle">Menu ▼</button>
++            <div class="dropdown-content">
++              <a href="dashboard.html">Dashboard</a>
++              <a href="profile-seeker.html" id="seekerProfileLink">My Profile</a>
++              <a href="profile-employer.html" id="employerProfileLink">Company Profile</a>
++              <a href="post-job.html" id="postJobLink">Post a Job</a>
++              <a href="#" class="logout-btn">Logout</a>
++            </div>
++          </div>
++        </div>
+       </nav>
+     </div>
+   </header>
+@@ .. @@
+     </form>
+   </section>
+
++  <script src="js/navigation.js"></script>
+   <script type="module">
+     const seekerConfig = {
+@@ .. @@
+     const app = getApps().length > 0 ? getApps()[0] : initializeApp(seekerConfig);
+     const auth = getAuth(app);
+
+-    const logoutBtn = document.getElementById("logoutBtn");
+-    logoutBtn.addEventListener("click", async () => {
+-      await signOut(auth);
+-      alert("Logged out.");
+-      window.location.href = "login.html";
+-    });
+-
+     onAuthStateChanged(auth, (user) => {

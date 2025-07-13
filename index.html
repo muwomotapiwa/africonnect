@@ -3,20 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AfriConnect – Empowering Africa’s Remote Workforce</title>
+  <title>AkiliAfriQA – Empowering Africa's Remote Workforce</title>
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/navigation.css" />
 </head>
 <body>
 
   <!-- Header -->
   <header class="navbar">
     <div class="container">
-      <h1 class="logo">AfriConnect</h1>
-      <nav>
+      <a href="index.html" class="logo">AkiliAfriQA</a>
+      <button class="mobile-menu-toggle">☰</button>
+      <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="jobs.html">Jobs</a>
-        <a href="signup.html">Join</a>
-        <a href="login.html" class="btn-login">Login</a>
+        <a href="about.html">About</a>
+        <div id="authLinks" class="auth-links">
+          <a href="signup.html">Join</a>
+          <a href="login.html" class="btn-login">Login</a>
+        </div>
+        <div id="userMenu" class="user-menu">
+          <span id="userGreeting" class="user-greeting"></span>
+          <div class="dropdown">
+            <button class="dropdown-toggle">Menu ▼</button>
+            <div class="dropdown-content">
+              <a href="dashboard.html">Dashboard</a>
+              <a href="profile-seeker.html" id="seekerProfileLink">My Profile</a>
+              <a href="profile-employer.html" id="employerProfileLink">Company Profile</a>
+              <a href="post-job.html" id="postJobLink">Post a Job</a>
+              <a href="#" class="logout-btn">Logout</a>
+            </div>
+          </div>
+        </div>
       </nav>
     </div>
   </header>
@@ -24,7 +42,7 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="container">
-      <h2>Connecting Africa’s Top Talent to Global Opportunities</h2>
+      <h2>Empowering Africa's Brightest Minds with Global Opportunities</h2>
       <p>Find skilled African professionals ready to work remotely across industries.</p>
       <a href="signup.html" class="btn-primary">Get Started</a>
     </div>
@@ -33,7 +51,7 @@
   <!-- How it Works -->
   <section class="how-it-works">
     <div class="container">
-      <h3>How AfriConnect Works</h3>
+      <h3>How AkiliAfriQA Works</h3>
       <div class="steps">
         <div class="step">Sign Up & Create Profile</div>
         <div class="step">Browse or Post Jobs</div>
@@ -69,7 +87,7 @@
   <!-- About -->
   <section class="about">
     <div class="container">
-      <h3>About AfriConnect</h3>
+      <h3>About AkiliAfriQA</h3>
       <p>We are on a mission to connect global employers with Africa's best remote professionals, building opportunity and economic empowerment across the continent.</p>
     </div>
   </section>
@@ -78,7 +96,7 @@
   <section class="cta">
     <div class="container">
       <h3>Ready to Find Talent or Work?</h3>
-      <a href="signup.html" class="btn-secondary">Join AfriConnect Today</a>
+      <a href="signup.html" class="btn-secondary">Join AkiliAfriQA Today</a>
     </div>
   </section>
 
@@ -86,7 +104,7 @@
  <footer class="site-footer">
   <div class="footer-container">
     <div class="footer-brand">
-      <h2>AfriConnect</h2>
+      <h2>AkiliAfriQA</h2>
       <p>Empowering Africa’s talent for global remote work. We connect skilled professionals with overseas companies seeking excellence.</p>
       <div class="footer-cta">
         <a href="signup.html" class="btn-primary">Join as Job Seeker</a>
@@ -119,7 +137,7 @@
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; 2025 AfriConnect. All rights reserved.</p>
+      <p>&copy; 2025 AkiliAfriQA. All rights reserved.</p>
       <div class="social-links">
         <a href="#"><img src="assets/icons/linkedin.svg" alt="LinkedIn" /></a>
         <a href="#"><img src="assets/icons/twitter.svg" alt="Twitter" /></a>
@@ -129,7 +147,6 @@
   </div>
 </footer>
 
-
-  <script src="js/main.js"></script>
+  <script src="js/navigation.js"></script>
 </body>
 </html>
