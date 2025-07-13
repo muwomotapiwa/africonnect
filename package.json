@@ -1,0 +1,29 @@
+{
+  "name": "akiliafriqa",
+  "version": "1.0.0",
+  "description": "AkiliAfriQA - Empowering Africa's Remote Workforce",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx live-server --port=3000 --host=0.0.0.0",
+    "start": "npx live-server --port=3000 --host=0.0.0.0",
+    "build": "echo 'Build complete - static files ready'",
+    "preview": "npx live-server --port=4173 --host=0.0.0.0"
+  },
+  "keywords": [
+    "jobs",
+    "africa",
+    "remote-work",
+    "employment",
+    "talent"
+  ],
+  "author": "AkiliAfriQA Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/akiliafriqa.git"
+  },
+  "homepage": "https://your-username.github.io/akiliafriqa"
+}
