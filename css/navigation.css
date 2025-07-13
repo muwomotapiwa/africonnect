@@ -1,0 +1,148 @@
+/* Navigation Component Styles */
+.navbar {
+  background-color: #1A1A40;
+  color: #fff;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar .nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.navbar .nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar .btn-login {
+  background-color: #FF7F11;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.navbar .btn-login:hover {
+  background-color: #e36f0a;
+}
+
+.navbar .user-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.navbar .user-greeting {
+  color: #fff;
+  margin-right: 1rem;
+  font-weight: 500;
+}
+
+.navbar .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.navbar .dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.navbar .dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.navbar .dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.navbar .dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.navbar .dropdown-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.navbar .dropdown-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile Navigation */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .navbar .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #1A1A40;
+    flex-direction: column;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .navbar .nav-links.active {
+    display: flex;
+  }
+  
+  .navbar .nav-links a {
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
