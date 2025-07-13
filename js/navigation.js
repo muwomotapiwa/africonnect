@@ -60,6 +60,18 @@ class NavigationManager {
           this.currentUser = user;
           this.userRole = "Job Seeker";
           this.updateNavigation();
+          // Store auth state in localStorage
+          localStorage.setItem('userRole', 'Job Seeker');
+          localStorage.setItem('userName', user.displayName || user.email);
+        } else {
+          // Clear stored auth state if user logs out
+          if (this.userRole === "Job Seeker") {
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
+            this.currentUser = null;
+            this.userRole = null;
+            this.updateNavigation();
+          }
         }
       });
     }
@@ -70,6 +82,18 @@ class NavigationManager {
           this.currentUser = user;
           this.userRole = "Employer";
           this.updateNavigation();
+          // Store auth state in localStorage
+          localStorage.setItem('userRole', 'Employer');
+          localStorage.setItem('userName', user.displayName || user.email);
+        } else {
+          // Clear stored auth state if user logs out
+          if (this.userRole === "Employer") {
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('userName');
+            this.currentUser = null;
+            this.userRole = null;
+            this.updateNavigation();
+          }
         }
       });
     }
@@ -91,11 +115,22 @@ class NavigationManager {
     const authLinks = document.getElementById('authLinks');
     const userMenu = document.getElementById('userMenu');
     const postJobLink = document.getElementById('postJobLink');
+    const seekerProfileLink = document.getElementById('seekerProfileLink');
+    const employerProfileLink = document.getElementById('employerProfileLink');
 
-    if (this.currentUser) {
+    // Check for stored auth state if no current user
+    const storedRole = localStorage.getItem('userRole');
+    const storedName = localStorage.getItem('userName');
+    
+    if (this.currentUser || (storedRole && storedName)) {
       // User is logged in
+      const displayName = this.currentUser ? 
+        (this.currentUser.displayName || this.currentUser.email) : 
+        storedName;
+      const userRole = this.userRole || storedRole;
+      
       if (userGreeting) {
-        userGreeting.textContent = `Welcome, ${this.currentUser.displayName || this.currentUser.email}`;
+        userGreeting.textContent = `Welcome, ${displayName}`;
         userGreeting.style.display = 'block';
       }
       
@@ -104,7 +139,15 @@ class NavigationManager {
       
       // Show post job link only for employers
       if (postJobLink) {
-        postJobLink.style.display = this.userRole === 'Employer' ? 'block' : 'none';
+        postJobLink.style.display = userRole === 'Employer' ? 'block' : 'none';
+      }
+      
+      // Show appropriate profile links
+      if (seekerProfileLink) {
+        seekerProfileLink.style.display = userRole === 'Job Seeker' ? 'block' : 'none';
+      }
+      if (employerProfileLink) {
+        employerProfileLink.style.display = userRole === 'Employer' ? 'block' : 'none';
       }
     } else {
       // User is not logged in
@@ -112,6 +155,8 @@ class NavigationManager {
       if (authLinks) authLinks.style.display = 'block';
       if (userMenu) userMenu.style.display = 'none';
       if (postJobLink) postJobLink.style.display = 'none';
+      if (seekerProfileLink) seekerProfileLink.style.display = 'none';
+      if (employerProfileLink) employerProfileLink.style.display = 'none';
     }
   }
 
@@ -127,6 +172,11 @@ class NavigationManager {
       
       this.currentUser = null;
       this.userRole = null;
+      
+      // Clear stored auth state
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('userName');
+      
       this.updateNavigation();
       
       // Redirect to home page
@@ -143,20 +193,24 @@ class NavigationManager {
     const protectedPages = ['dashboard.html', 'post-job.html', 'profile-employer.html', 'profile-seeker.html'];
     const employerOnlyPages = ['post-job.html', 'profile-employer.html'];
     const seekerOnlyPages = ['profile-seeker.html'];
+    
+    const storedRole = localStorage.getItem('userRole');
+    const hasAuth = this.currentUser || storedRole;
 
-    if (protectedPages.includes(currentPage) && !this.currentUser) {
+    if (protectedPages.includes(currentPage) && !hasAuth) {
       alert("Please log in to access this page.");
       window.location.href = 'login.html';
       return false;
     }
 
-    if (employerOnlyPages.includes(currentPage) && this.userRole !== 'Employer') {
+    const userRole = this.userRole || storedRole;
+    if (employerOnlyPages.includes(currentPage) && userRole !== 'Employer') {
       alert("This page is only accessible to employers.");
       window.location.href = 'dashboard.html';
       return false;
     }
 
-    if (seekerOnlyPages.includes(currentPage) && this.userRole !== 'Job Seeker') {
+    if (seekerOnlyPages.includes(currentPage) && userRole !== 'Job Seeker') {
       alert("This page is only accessible to job seekers.");
       window.location.href = 'dashboard.html';
       return false;
@@ -169,6 +223,11 @@ class NavigationManager {
 // Initialize navigation when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   window.navigationManager = new NavigationManager();
+  
+  // Initialize navigation immediately with stored state
+  setTimeout(() => {
+    window.navigationManager.updateNavigation();
+  }, 100);
   
   // Setup logout button listeners
   document.addEventListener('click', (e) => {
