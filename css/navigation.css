@@ -91,12 +91,14 @@
   text-decoration: none;
   display: block;
   font-weight: normal;
+  cursor: pointer;
 }
 
 .navbar .dropdown-content a:hover {
   background-color: #f1f1f1;
 }
 
+.navbar .dropdown.active .dropdown-content,
 .navbar .dropdown:hover .dropdown-content {
   display: block;
 }

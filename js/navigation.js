@@ -102,10 +102,28 @@ class NavigationManager {
   setupMobileMenu() {
     const mobileToggle = document.querySelector('.mobile-menu-toggle');
     const navLinks = document.querySelector('.nav-links');
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
     
     if (mobileToggle && navLinks) {
       mobileToggle.addEventListener('click', () => {
         navLinks.classList.toggle('active');
+      });
+    }
+
+    // Handle dropdown toggle for mobile and desktop
+    if (dropdownToggle && dropdown) {
+      dropdownToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropdown.classList.toggle('active');
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove('active');
+        }
       });
     }
   }
